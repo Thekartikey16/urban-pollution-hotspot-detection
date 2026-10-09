@@ -1,0 +1,74 @@
+# ==========================================
+# P_286 - URBAN POLLUTION HOTSPOT DETECTION
+# DOCKER COMPOSE
+# ==========================================
+
+services:
+
+  # ========================================
+  # INFLUXDB
+  # ========================================
+
+  influxdb:
+
+    image: influxdb:2.7
+
+    container_name: p286-influxdb
+
+    ports:
+      - "8086:8086"
+
+    environment:
+
+      DOCKER_INFLUXDB_INIT_MODE: setup
+
+      DOCKER_INFLUXDB_INIT_USERNAME: p286_admin
+
+      DOCKER_INFLUXDB_INIT_PASSWORD: P286_Admin_2026!
+
+      DOCKER_INFLUXDB_INIT_ORG: P286
+
+      DOCKER_INFLUXDB_INIT_BUCKET: pollution_data
+
+      DOCKER_INFLUXDB_INIT_RETENTION: 30d
+
+    volumes:
+
+      - influxdb_data:/var/lib/influxdb2
+
+      - influxdb_config:/etc/influxdb2
+
+
+  # ========================================
+  # GRAFANA
+  # ========================================
+
+  grafana:
+
+    image: grafana/grafana:latest
+
+    container_name: p286-grafana
+
+    ports:
+      - "3000:3000"
+
+    depends_on:
+
+      - influxdb
+
+    volumes:
+
+      - grafana_data:/var/lib/grafana
+
+
+# ==========================================
+# DOCKER VOLUMES
+# ==========================================
+
+volumes:
+
+  influxdb_data:
+
+  influxdb_config:
+
+  grafana_data:

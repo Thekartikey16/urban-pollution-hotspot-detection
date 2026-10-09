@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- ==========================================
+         P_286 - URBAN POLLUTION HOTSPOT DASHBOARD
+         Vercel Deployment
+         ========================================== -->
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>P_286 | Urban Pollution Hotspot Detection</title>
+
+    <meta name="description"
+          content="Real-time urban pollution hotspot detection dashboard using K-Means clustering and geospatial analysis across 26 Indian cities." />
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🌍</text></svg>" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/styles.css" />
+
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.35.0.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- ==========================================
+         ANIMATED BACKGROUND
+         ========================================== -->
+
+    <div class="bg-grid"></div>
+    <div class="bg-gradient-orb orb-1"></div>
+    <div class="bg-gradient-orb orb-2"></div>
+    <div class="bg-gradient-orb orb-3"></div>
+
+
+    <!-- ==========================================
+         APP CONTAINER
+         ========================================== -->
+
+    <div class="app-container">
+
+
+        <!-- ==========================================
+             HEADER
+             ========================================== -->
+
+        <header class="header" id="header">
+
+            <div class="header-badge">
+                <span class="pulse-dot"></span>
+                P_286 — Urban Pollution Hotspot Detection
+            </div>
+
+            <h1>
+                <span class="emoji">🌍</span>
+                Urban Pollution Hotspot Detection
+            </h1>
+
+            <p>
+                Historical pollution analysis using K-Means clustering
+                and geospatial data across 26 Indian cities
+            </p>
+
+        </header>
+
+
+        <!-- ==========================================
+             FILTER BAR
+             ========================================== -->
+
+        <div class="filter-bar" id="filter-bar">
+
+            <label for="city-select">
+                🏙️ Filter by City
+            </label>
+
+            <select id="city-select">
+                <option value="All">All Cities</option>
+            </select>
+
+        </div>
+
+
+        <!-- ==========================================
+             METRIC CARDS
+             ========================================== -->
+
+        <div class="metrics-grid" id="metrics-grid">
+
+            <div class="metric-card animate-in" id="metric-total">
+                <div class="metric-icon">📊</div>
+                <div class="metric-label">Total Records</div>
+                <div class="metric-value" id="val-total">—</div>
+            </div>
+
+            <div class="metric-card animate-in" id="metric-hotspot">
+                <div class="metric-icon">🔴</div>
+                <div class="metric-label">Hotspot Records</div>
+                <div class="metric-value" id="val-hotspot">—</div>
+            </div>
+
+            <div class="metric-card animate-in" id="metric-normal">
+                <div class="metric-icon">🟢</div>
+                <div class="metric-label">Normal Records</div>
+                <div class="metric-value" id="val-normal">—</div>
+            </div>
+
+            <div class="metric-card animate-in" id="metric-pm25">
+                <div class="metric-icon">💨</div>
+                <div class="metric-label">Average PM2.5</div>
+                <div class="metric-value" id="val-pm25">—</div>
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             HOTSPOT MAP
+             ========================================== -->
+
+        <div class="section-card" id="section-map">
+
+            <div class="section-title">
+                <span class="section-icon">📍</span>
+                Pollution Hotspot Map
+                <span class="section-subtitle" id="map-subtitle">Loading points...</span>
+            </div>
+
+            <div id="map-chart" style="width: 100%; height: 550px;">
+                <div class="loading-overlay">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">Loading map data...</div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             CHARTS ROW
+             ========================================== -->
+
+        <div class="charts-row">
+
+            <!-- Pollution Parameters -->
+            <div class="section-card">
+
+                <div class="section-title">
+                    <span class="section-icon">📊</span>
+                    Average Pollution Levels
+                </div>
+
+                <div id="pollution-chart" style="width: 100%; height: 400px;">
+                    <div class="loading-overlay">
+                        <div class="loading-spinner"></div>
+                        <div class="loading-text">Loading chart...</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Cluster Distribution -->
+            <div class="section-card">
+
+                <div class="section-title">
+                    <span class="section-icon">🔵</span>
+                    Pollution Cluster Distribution
+                </div>
+
+                <div id="cluster-chart" style="width: 100%; height: 400px;">
+                    <div class="loading-overlay">
+                        <div class="loading-spinner"></div>
+                        <div class="loading-text">Loading chart...</div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             CITY-WISE POLLUTION COMPARISON
+             ========================================== -->
+
+        <div class="section-card" id="section-city-pollution">
+
+            <div class="section-title">
+                <span class="section-icon">🏙️</span>
+                City-wise PM2.5 Levels
+            </div>
+
+            <div id="city-pm25-chart" style="width: 100%; height: 500px;">
+                <div class="loading-overlay">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">Loading chart...</div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             HOTSPOT TABLE
+             ========================================== -->
+
+        <div class="section-card" id="section-table">
+
+            <div class="section-title">
+                <span class="section-icon">🚨</span>
+                Hotspot Records
+                <span class="section-subtitle" id="table-subtitle">Top 200 records</span>
+            </div>
+
+            <div class="table-wrapper" id="hotspot-table-container">
+                <div class="loading-overlay">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">Loading table...</div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             FOOTER
+             ========================================== -->
+
+        <footer class="footer">
+            <p>
+                <span class="footer-brand">P_286 Urban Pollution Hotspot Detection</span>
+                &nbsp;•&nbsp; Kaggle Historical Dataset + K-Means Clustering
+                &nbsp;•&nbsp; Urban Pollution Hotspot Detection
+            </p>
+        </footer>
+
+
+    </div>
+    <!-- /.app-container -->
+
+
+    <!-- ==========================================
+         APPLICATION JAVASCRIPT
+         ========================================== -->
+
+    <script src="/app.js"></script>
+
+</body>
+
+</html>

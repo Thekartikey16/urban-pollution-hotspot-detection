@@ -1,0 +1,39 @@
+# ==========================================
+# P_286 - GITIGNORE
+# ==========================================
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Large data files (not needed for Vercel)
+dashboard_data.csv
+pollution_clusters.csv
+pollution_data.csv
+
+# Model files (offline only)
+pollution_kmeans.joblib
+pollution_scaler.joblib
+
+# Vercel
+.vercel/
+.env
+.env.local
+
+# Node
+node_modules/
