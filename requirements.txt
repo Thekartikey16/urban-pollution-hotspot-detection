@@ -1,11 +1,6 @@
-pandas
-numpy
-scikit-learn
-geopandas
-shapely
+
 flask
-streamlit
-plotly
-paho-mqtt
-influxdb-client
+numpy
+pandas
+scikit-learn
 joblib
