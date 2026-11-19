@@ -1,6 +1,3 @@
 
-flask
-numpy
-pandas
-scikit-learn
-joblib
+# No third-party dependencies required.
+# Vercel API uses Python standard library only.
