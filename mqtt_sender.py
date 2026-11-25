@@ -1,13 +1,22 @@
-import paho.mqtt.client as mqtt
+# ==========================================
+# P_286 - MQTT LATENCY TEST
+# Sends a single message and measures time
+# ==========================================
+
+import os
 import json
 import time
+import paho.mqtt.client as mqtt
 
 # HiveMQ Cloud details
-broker = "a395015caed2401f8487d57a621e13e2.s1.eu.hivemq.cloud"
-port = 8883
+broker = os.environ.get(
+    "MQTT_BROKER",
+    "a395015caed2401f8487d57a621e13e2.s1.eu.hivemq.cloud"
+)
+port = int(os.environ.get("MQTT_PORT", "8883"))
 
-username = "kartikey"
-password = "KARTIKEY"
+username = os.environ.get("MQTT_USERNAME", "")
+password = os.environ.get("MQTT_PASSWORD", "")
 
 topic = "sensor/temp"
 
@@ -18,7 +27,9 @@ payload = {
 }
 
 # Create MQTT client
-client = mqtt.Client()
+client = mqtt.Client(
+    mqtt.CallbackAPIVersion.VERSION2
+)
 
 # Authentication
 client.username_pw_set(username, password)

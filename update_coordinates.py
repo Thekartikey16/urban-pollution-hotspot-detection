@@ -1,9 +1,19 @@
+# ==========================================
+# P_286 - UPLOAD COORDINATES TO INFLUXDB
+# Offline tool — requires local InfluxDB
+# ==========================================
+
+import os
 import pandas as pd
 from influxdb_client import InfluxDBClient, Point
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-URL = "http://localhost:8086"
-TOKEN = "kosNqegZv_PvvMcUw1qQHelQ2GS7cCAaMus8YU9D4LB9pEuGzQvySICHWJKZ0VD_1fCl_qBnvDmyjX1vXe-PoA=="
+URL = os.environ.get(
+    "INFLUX_URL", "http://localhost:8086"
+)
+
+TOKEN = os.environ.get("INFLUX_TOKEN", "")
+
 ORG = "P286"
 BUCKET = "pollution_data"
 

@@ -25,6 +25,12 @@ desktop.ini
 dashboard_data.csv
 pollution_clusters.csv
 pollution_data.csv
+processed_pollution_data.csv
+
+# Generated output files
+pollution_hotspots.geojson
+hotspot_cluster.txt
+latest_pollution.json
 
 # Model files (offline only)
 pollution_kmeans.joblib

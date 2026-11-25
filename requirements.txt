@@ -1,3 +1,2 @@
-
 # No third-party dependencies required.
 # Vercel API uses Python standard library only.

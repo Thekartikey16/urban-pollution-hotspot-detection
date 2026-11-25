@@ -2,23 +2,34 @@
 # P_286 - URBAN POLLUTION HOTSPOT DETECTION
 # ==========================================
 
+import os
+
 
 # ==========================================
 # HIVEMQ CLOUD CONFIGURATION
 # ==========================================
 
-MQTT_BROKER = "a395015caed2401f8487d57a621e13e2.s1.eu.hivemq.cloud"
+MQTT_BROKER = os.environ.get(
+    "MQTT_BROKER",
+    "a395015caed2401f8487d57a621e13e2.s1.eu.hivemq.cloud"
+)
 
-MQTT_PORT = 8883
+MQTT_PORT = int(os.environ.get(
+    "MQTT_PORT", "8883"
+))
 
 
 # ==========================================
 # MQTT LOGIN CREDENTIALS
 # ==========================================
 
-MQTT_USERNAME = "kartikey"
+MQTT_USERNAME = os.environ.get(
+    "MQTT_USERNAME", ""
+)
 
-MQTT_PASSWORD = "KARTIKEY"
+MQTT_PASSWORD = os.environ.get(
+    "MQTT_PASSWORD", ""
+)
 
 
 # ==========================================
@@ -78,8 +89,3 @@ LONGITUDE_COLUMN = "longitude"
 HOTSPOT_CLUSTER = 1
 
 HOTSPOT_THRESHOLD = 0.70
-# ==========================================
-# ENERGY / ELECTRICITY CONFIGURATION
-# ==========================================
-
-TARIFF_PER_KWH = 8.0
