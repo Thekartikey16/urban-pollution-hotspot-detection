@@ -1,47 +1,48 @@
 {
-  "version": 2,
-  "functions": {
-    "api/**/*.py": {
-      "includeFiles": "public/data/**"
-    }
-  },
-  "rewrites": [
-    {
-      "source": "/((?!api/|data/).*)",
-      "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/api/(.*)",
-      "headers": [
+    "version": 2,
+    "builds": [
         {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
+            "src": "api/**/*.py",
+            "use": "@vercel/python"
         },
         {
-          "key": "Cache-Control",
-          "value": "public, max-age=60, s-maxage=300"
+            "src": "public/**",
+            "use": "@vercel/static"
         }
-      ]
-    },
-    {
-      "source": "/data/(.*)",
-      "headers": [
+    ],
+    "routes": [
         {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600, s-maxage=86400"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)\\.(css|js)",
-      "headers": [
+            "src": "/api/(.*)",
+            "dest": "/api/$1",
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Cache-Control": "public, max-age=60, s-maxage=300"
+            }
+        },
         {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
+            "src": "/data/(.*)",
+            "dest": "/public/data/$1",
+            "headers": {
+                "Cache-Control": "public, max-age=3600, s-maxage=86400"
+            }
+        },
+        {
+            "src": "/(.*\\.(css|js))",
+            "dest": "/public/$1",
+            "headers": {
+                "Cache-Control": "public, max-age=31536000, immutable"
+            }
+        },
+        {
+            "src": "/(.*\\.(json|png|jpg|ico|svg))",
+            "dest": "/public/$1",
+            "headers": {
+                "Cache-Control": "public, max-age=3600"
+            }
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/public/index.html"
         }
-      ]
-    }
-  ]
+    ]
 }
