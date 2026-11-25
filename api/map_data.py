@@ -34,7 +34,7 @@ class handler(BaseHTTPRequestHandler):
             with open(
                 os.path.join(
                     data_dir, "map_points.json"
-                ), "r"
+                ), "r", encoding="utf-8"
             ) as f:
                 points = json.load(f)
 

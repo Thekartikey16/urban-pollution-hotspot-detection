@@ -1,0 +1,42 @@
+# Python virtual environments & cache
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+
+# Large datasets & ML models (offline pipeline only)
+*.csv
+*.joblib
+*.geojson
+hotspot_cluster.txt
+latest_pollution.json
+
+# Offline / IoT / local-only scripts
+clustering.py
+config.py
+dashboard_data.py
+dataset_preprocessing.py
+docker-compose.yml
+geospatial.py
+http_sender.py
+import_to_influx.py
+live_clustering.py
+local_server.py
+mqtt_publisher.py
+mqtt_sender.py
+mqtt_subscriber.py
+pollution_dashboard.py
+pollution_processor.py
+prepare_deploy_data.py
+update_coordinates.py
+
+# Dev / Git / Docs
+.git/
+.devcontainer/
+.vscode/
+.idea/
+.env
+.env.local
+README.md

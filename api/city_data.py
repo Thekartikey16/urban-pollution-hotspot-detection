@@ -34,7 +34,7 @@ class handler(BaseHTTPRequestHandler):
             with open(
                 os.path.join(
                     data_dir, "city_stats.json"
-                ), "r"
+                ), "r", encoding="utf-8"
             ) as f:
                 city_stats = json.load(f)
 
@@ -42,7 +42,7 @@ class handler(BaseHTTPRequestHandler):
             with open(
                 os.path.join(
                     data_dir, "city_pollution.json"
-                ), "r"
+                ), "r", encoding="utf-8"
             ) as f:
                 city_pollution = json.load(f)
 

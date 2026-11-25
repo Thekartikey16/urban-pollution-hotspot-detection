@@ -22,7 +22,7 @@ class handler(BaseHTTPRequestHandler):
 
         try:
 
-            with open(summary_path, "r") as f:
+            with open(summary_path, "r", encoding="utf-8") as f:
                 summary = json.load(f)
 
             self.send_response(200)
